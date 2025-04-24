@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gourmet Bistro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="./favicon.png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <img src="favicon.png" alt="icon" style="height: 40px; width: 50px; padding-right: 10px;">
+            <a class="navbar-brand" href="#">Gourmet Bistro</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item d-none" id="home-link"><a class="nav-link" href="#" id="home-link">Home</a></li>
+                    <li class="nav-item d-none" id="profile-link"><a class="nav-link" href="#profile">Profile</a></li>
+                    <li class="nav-item d-none" id="orders-link"><a class="nav-link" href="#orders">Order History</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-3" id="signInBtn" data-bs-toggle="modal"
+                            data-bs-target="#signInModal">Sign In</button>
+                        <button class="btn btn-outline-danger ms-3 d-none" id="signOutBtn" onclick="signOut()">Sign
+                            Out</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-3" id="darkModeToggle">🌙</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sign In Modal -->
+    <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" id="username" class="form-control mb-2" placeholder="Username">
+                    <input type="password" id="password" class="form-control mb-2" placeholder="Password">
+                    <button class="btn btn-primary w-100" onclick="signIn()">Sign In</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero-carousel">
+        <div id="gourmetCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-bs-target="#gourmetCarousel" data-bs-slide-to="0" class="active"></li>
+                <li data-bs-target="#gourmetCarousel" data-bs-slide-to="1"></li>
+                <li data-bs-target="#gourmetCarousel" data-bs-slide-to="2"></li>
+            </ol>
+            
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <!-- Slide 1 - Main Welcome -->
+                <div class="carousel-item active" style="background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="carousel-caption text-center text-white">
+                        <div class="container">
+                            <h1 class="display-4">Welcome to Gourmet Bistro</h1>
+                            <p class="lead">Experience fine dining like never before</p>
+                            <a href="#reservation" id="reserveTableBtn" class="btn btn-warning btn-lg mt-3">Reserve a Table</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 - Seasonal Specials -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="carousel-caption text-center text-white">
+                        <div class="container">
+                            <h2 class="display-4">Seasonal Specials</h2>
+                            <p class="lead">Discover our chef's curated selection of spring dishes</p>
+                            <a href="#menu" class="btn btn-outline-light btn-lg mt-3">View Menu</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 - Wine Pairing -->
+                <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1558160074-4d7d8bdf4256?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');">
+                    <div class="carousel-caption text-center text-white">
+                        <div class="container">
+                            <h2 class="display-4">Wine Pairing Evenings</h2>
+                            <p class="lead">Join us every Thursday for exclusive wine tastings</p>
+                            <a href="#events" class="btn btn-outline-light btn-lg mt-3" data-bs-toggle="modal" data-bs-target="#wineTastingModal">Learn More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <a class="carousel-control-prev" href="#gourmetCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#gourmetCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </a>
+        </div>
+    </header>
+    
+    <!-- Required Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Optional: Add smooth transition and autoplay
+        $(document).ready(function(){
+            $('#gourmetCarousel').carousel({
+                interval: 5000,
+                pause: "hover"
+            });
+        });
+    </script>
+
+    <!-- Menu Section -->
+    <section id="menu" class="container py-5">
+        <h2 class="text-center mb-4">Our Menu</h2>
+        <div class="d-flex justify-content-center justify-content-md-between align-items-center mb-3">
+            <div>
+                <button class="btn btn-outline-dark" onclick="filterMenu('all')">All</button>
+                <button class="btn btn-outline-dark" onclick="filterMenu('veg')">Veg</button>
+                <button class="btn btn-outline-dark" onclick="filterMenu('egg')">Egg</button>
+                <button class="btn btn-outline-dark" onclick="filterMenu('non-veg')">Non-Veg</button>
+                <button class="btn btn-outline-dark" onclick="filterMenu('vegan')">Vegan</button>
+                <button class="btn btn-outline-dark" onclick="filterMenu('gluten-free')">Gluten-Free</button>
+            </div>
+            <button class="btn btn-primary" id="seeLessBtn" onclick="showLessMenu()" style="display: none;">See
+                Less</button>
+        </div>
+        <div class="row" id="menuItems">
+            <!-- First 3 visible items -->
+            <div class="col-md-4 menu-item vegan veg">
+                <div class="card">
+                    <img src="salad.jpg" class="card-img-top" alt="Vegan Salad">
+                    <div class="card-body">
+                        <h5 class="card-title">Vegan Salad - Rs.100</h5>
+                        <p class="card-text">Fresh greens & nuts</p>
+                        <button class="favorite-btn" data-item="Vegan Salad"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item gluten-free non-veg">
+                <div class="card">
+                    <img src="chicken.jpg" class="card-img-top" alt="Grilled Chicken">
+                    <div class="card-body">
+                        <h5 class="card-title">Grilled Chicken - Rs.100</h5>
+                        <p class="card-text">Served with herbs</p>
+                        <button class="favorite-btn" data-item="Grilled Chicken"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item veg">
+                <div class="card">
+                    <img src="pasta.jpg" class="card-img-top" alt="Spaghetti">
+                    <div class="card-body">
+                        <h5 class="card-title">Spaghetti Bolognese - Rs.100</h5>
+                        <p class="card-text">Classic Italian taste</p>
+                        <button class="favorite-btn" data-item="Spaghetti"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Remaining hidden items -->
+            <div class="col-md-4 menu-item non-veg hidden extra">
+                <div class="card">
+                    <img src="burger.jpg" class="card-img-top" alt="Burger">
+                    <div class="card-body">
+                        <h5 class="card-title">Cheese Burger - Rs.100</h5>
+                        <p class="card-text">Juicy beef patty with cheese</p>
+                        <button class="favorite-btn" data-item="Burger" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item non-veg hidden extra">
+                <div class="card">
+                    <img src="pizza.jpg" class="card-img-top" alt="Pizza">
+                    <div class="card-body">
+                        <h5 class="card-title">Pepperoni Pizza - Rs.100</h5>
+                        <p class="card-text">Crispy crust with spicy pepperoni</p>
+                        <button class="favorite-btn" data-item="Pizza" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item vegan veg hidden extra">
+                <div class="card">
+                    <img src="soup.jpg " class="card-img-top" alt="Soup">
+                    <div class="card-body">
+                        <h5 class="card-title">Tomato Soup - Rs.100</h5>
+                        <p class="card-text">Rich and creamy tomato soup</p>
+                        <button class="favorite-btn" data-item="Soup" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item gluten-free non-veg hidden extra">
+                <div class="card">
+                    <img src="steak.jpg" class="card-img-top" alt="Steak">
+                    <div class="card-body">
+                        <h5 class="card-title">Grilled Steak - Rs.100</h5>
+                        <p class="card-text">Perfectly grilled to your liking</p>
+                        <button class="favorite-btn" data-item="Steak" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item gluten-free non-veg hidden extra">
+                <div class="card">
+                    <img src="sushi.jpg" class="card-img-top" alt="Sushi">
+                    <div class="card-body">
+                        <h5 class="card-title">Sushi Platter - Rs.100</h5>
+                        <p class="card-text">Assorted fresh sushi rolls</p>
+                        <button class="favorite-btn" data-item="Sushi" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item non-veg egg hidden extra">
+                <div class="card">
+                    <img src="pancakes.jpg" class="card-img-top" alt="Pancakes">
+                    <div class="card-body">
+                        <h5 class="card-title">Blueberry Pancakes - Rs.100</h5>
+                        <p class="card-text">Fluffy pancakes with fresh blueberries</p>
+                        <button class="favorite-btn" data-item="Pancakes"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item veg hidden extra">
+                <div class="card">
+                    <img src="icecream.jpg" class="card-img-top" alt="Ice Cream">
+                    <div class="card-body">
+                        <h5 class="card-title">Vanilla Ice Cream - Rs.100</h5>
+                        <p class="card-text">Classic vanilla flavor</p>
+                        <button class="favorite-btn" data-item="Ice Cream"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item non-veg egg hidden extra">
+                <div class="card">
+                    <img src="brownie.jpg" class="card-img-top" alt="Brownie">
+                    <div class="card-body">
+                        <h5 class="card-title">Chocolate Brownie - Rs.100</h5>
+                        <p class="card-text">Rich and fudgy brownie</p>
+                        <button class="favorite-btn" data-item="Brownie"
+                            onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 menu-item veg hidden extra">
+                <div class="card">
+                    <img src="coffee.jpg" class="card-img-top" alt="Coffee">
+                    <div class="card-body">
+                        <h5 class="card-title">Cappuccino - Rs.100</h5>
+                        <p class="card-text">Freshly brewed with frothy milk</p>
+                        <button class="favorite-btn" data-item="Coffee" onclick="toggleFavorite(this)">&#x2661;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-primary" id="seeMoreBtn" onclick="showMoreMenu()">See More</button>
+        </div>
+    </section>
+
+    <!-- Our Chefs Section -->
+    <section id="ourChefs" class="container py-5">
+        <h2 class="text-center mb-4">Meet Our Chefs</h2>
+        <div id="chefCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" style="height: 500px;">
+                <!-- Chef 1 -->
+                <div class="carousel-item active">
+                    <div class="d-flex justify-content-center">
+                        <div class="card text-center shadow p-3 mb-5 bg-dark rounded" style="width: 30rem;">
+                            <img src="chef1.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Chef 1"
+                                style="width: 200px;">
+                            <div class="card-body">
+                                <h4 class="card-title">Chef Gordon ramsay</h4>
+                                <p class="card-text" style="color: whitesmoke;">Master of Italian Cuisine</p>
+                                <p class="text-warning">Michelin stars:⭐⭐⭐⭐⭐⭐⭐ </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chef 2 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="card text-center shadow p-3 mb-5 bg-dark rounded" style="width: 30rem;">
+                            <img src="chef2.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Chef 2"
+                                style="width: 200px;">
+                            <div class="card-body">
+                                <h4 class="card-title">Chef Sanjeev Kapoor</h4>
+                                <p class="card-text" style="color: whitesmoke;">Master of Indian Cuisine</p>
+                                <p class="text-warning">Padma Shri Awardee</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chef 3 -->
+                <div class="carousel-item">
+                    <div class="d-flex justify-content-center">
+                        <div class="card text-center shadow p-3 mb-5 bg-dark rounded" style="width: 30rem;">
+                            <img src="chef3.jpg" class="card-img-top rounded-circle mx-auto mt-3" alt="Chef 3"
+                                style="width: 200px;">
+                            <div class="card-body">
+                                <h4 class="card-title">Chef Chudaree ‘Tam’ Debhakam</h4>
+                                <p class="card-text" style="color: whitesmoke;">Expert in Asian Fusion</p>
+                                <p class="text-warning">Michelin Stars:⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#chefCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#chefCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="bg-light py-5">
+        <div class="container text-center">
+            <h2>Reserve a Table</h2>
+            <form id="reservationForm" class="mt-4">
+                <input type="text" id="name" class="form-control mb-2" placeholder="Your Name" required>
+                <input type="date" id="date" class="form-control mb-2" required>
+                <input type="time" id="time" class="form-control mb-2" required>
+                <select id="tableSize" class="form-control mb-2" required>
+                    <option value="" disabled selected>Select Table Size</option>
+                    <option value="1">1 Person</option>
+                    <option value="2">2 People</option>
+                    <option value="3">3 People</option>
+                    <option value="4">4 People</option>
+                    <option value="5">5 People</option>
+                    <option value="6">6 People</option>
+                    <option value="7">7 People</option>
+                    <option value="8">8 People</option>
+                </select>
+                <button type="submit" class="btn btn-primary">Book Now</button>
+            </form>
+            <p id="confirmation" class="mt-3"></p>
+        </div>
+    </section>
+
+    <!-- Order History Section -->
+    <section id="orders" class="container py-5 d-none">
+        <h2>Order History</h2>
+        <table class="table table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Table Size</th>
+                    <th>Status</th>
+                    <th>Payment</th>
+                </tr>
+            </thead>
+            <tbody id="orderTableBody">
+                <tr>
+                    <td colspan="6">No orders yet.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-5 text-center bg-dark text-white">
+        <div class="container">
+            <h2 class="mb-4">What Our Customers Say</h2>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner" style="height: 250px;">
+                    <!-- Testimonial 1 -->
+                    <div class="carousel-item active">
+                        <div class="card bg-secondary text-white mx-auto"
+                            style="max-width: 40rem; padding: 20px; border-radius: 15px;">
+                            <div class="card-body">
+                                <p class="fs-5">"The food was absolutely delicious! The flavors were authentic, and the
+                                    service was top-notch. I’ll definitely be coming back!"</p>
+                                <h5 class="mt-3">- Gandhi</h5>
+                                <p class="text-warning">⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 2 -->
+                    <div class="carousel-item">
+                        <div class="card bg-secondary text-white mx-auto"
+                            style="max-width: 40rem; padding: 20px; border-radius: 15px;">
+                            <div class="card-body">
+                                <p class="fs-5">"An unforgettable dining experience! The ambiance, the presentation, and
+                                    the taste were all on point."</p>
+                                <h5 class="mt-3">- Nethaji</h5>
+                                <p class="text-warning">⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="carousel-item">
+                        <div class="card bg-secondary text-white mx-auto"
+                            style="max-width: 40rem; padding: 20px; border-radius: 15px;">
+                            <div class="card-body">
+                                <p class="fs-5">"This is hands down the best restaurant I’ve been to. The chef’s special
+                                    was beyond amazing!"</p>
+                                <h5 class="mt-3">- Hitler</h5>
+                                <p class="text-warning">⭐⭐⭐⭐⭐</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon bg-dark rounded-circle p-3"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon bg-dark rounded-circle p-3"></span>
+                </button>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade" id="wineTastingModal" tabindex="-1" aria-labelledby="wineTastingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content bg-dark text-white">
+            <div class="modal-header border-0">
+              <h2 class="modal-title display-5" id="wineTastingModalLabel">Wine Pairing Evenings</h2>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <img src="https://images.unsplash.com/photo-1558160074-4d7d8bdf4256" class="img-fluid rounded mb-4" alt="Wine Tasting">
+                </div>
+                <div class="col-md-6">
+                  <h3 class="mb-4">Exclusive Wine Experience</h3>
+                  <p>Join our master sommelier every Thursday evening for an unforgettable journey through the world's finest vineyards.</p>
+                  
+                  <div class="feature-list mt-4">
+                    <div class="d-flex mb-3">
+                      <div class="me-3 text-warning">
+                        <i class="fas fa-wine-glass-alt fa-2x"></i>
+                      </div>
+                      <div>
+                        <h5>Premium Selection</h5>
+                        <p class="mb-0">5-course pairing with rare vintages from our cellar</p>
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex mb-3">
+                      <div class="me-3 text-warning">
+                        <i class="fas fa-user-tie fa-2x"></i>
+                      </div>
+                      <div>
+                        <h5>Expert Guidance</h5>
+                        <p class="mb-0">Learn from our award-winning sommelier</p>
+                      </div>
+                    </div>
+                    
+                    <div class="d-flex mb-3">
+                      <div class="me-3 text-warning">
+                        <i class="fas fa-calendar-alt fa-2x"></i>
+                      </div>
+                      <div>
+                        <h5>Special Events</h5>
+                        <p class="mb-0">Monthly featured regions and guest vintners</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row mt-4">
+                <div class="col-12">
+                  <h4 class="mb-3">Upcoming Events</h4>
+                  <div class="table-responsive">
+                    <table class="table table-dark">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Theme</th>
+                          <th>Featured Wines</th>
+                          <th>Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>June 15</td>
+                          <td>Tuscan Elegance</td>
+                          <td>Super Tuscans & Chianti Classico</td>
+                          <td>$120</td>
+                        </tr>
+                        <tr>
+                          <td>June 22</td>
+                          <td>Bordeaux Grand Crus</td>
+                          <td>Pomerol & Margaux</td>
+                          <td>$150</td>
+                        </tr>
+                        <tr>
+                          <td>June 29</td>
+                          <td>Napa Valley Stars</td>
+                          <td>Cabernet Sauvignon Showcase</td>
+                          <td>$135</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer border-0">
+              <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+              <a href="#reservation" class="btn btn-warning">Reserve Your Spot</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Location -->
+    <section id="location" class="py-5 text-center">
+        <h2>Find Us</h2>
+        <div id="map" class="map-container">
+            <iframe width=100% height=300px
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3892.2063095750427!2d77.77640037262141!3d12.699953360165908!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae7b001d1e1d35%3A0xfa488ab47f07bb25!2sDianVilla!5e0!3m2!1sen!2sin!4v1741587261869!5m2!1sen!2sin"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </section>
+
+    <!-- Profile & Order History -->
+    <section id="profile" class="container py-5 d-none">
+        <h2>Your Profile</h2>
+        <p>Welcome, <span id="profileName"></span>!</p>
+        <div id="profile-section">
+            <h2>Your Favorite Foods</h2>
+            <ul id="favorite-list"></ul>
+        </div>
+
+        <!-- Customer Reviews Section -->
+        <h2 class="text-center mb-4">Customer Reviews</h2>
+
+        <!-- Review Submission Form -->
+        <div class="card p-4 shadow-sm mb-5">
+            <h4>Share Your Experience</h4>
+            <form id="reviewForm">
+                <div class="mb-3">
+                    <label for="reviewName" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="reviewName" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="reviewText" class="form-label">Your Review</label>
+                    <textarea class="form-control" id="reviewText" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Your Rating</label>
+                    <div class="star-rating">
+                        <i class="fas fa-star" data-value="1"></i>
+                        <i class="fas fa-star" data-value="2"></i>
+                        <i class="fas fa-star" data-value="3"></i>
+                        <i class="fas fa-star" data-value="4"></i>
+                        <i class="fas fa-star" data-value="5"></i>
+                    </div>
+                    <input type="hidden" id="reviewRating" value="0">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+            </form>
+        </div>
+
+        <!-- Display Submitted Reviews -->
+        <h4 class="mt-5">What Our Customers Say</h4>
+        <div id="reviewList" class="mt-3">
+        </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Chatbot Button -->
+
+    <script src="https://cdn.jotfor.ms/s/umd/latest/for-embedded-agent.js"></script>
+    <script>
+      window.addEventListener("DOMContentLoaded", function() {
+        window.AgentInitializer.init({
+          rootId: "JotformAgent-019667a4be857a7eb57c55a292cedff80cd2",
+          formID: "019667a4be857a7eb57c55a292cedff80cd2",
+          queryParams: ["skipWelcome=1", "maximizable=1"],
+          domain: "https:\/\/www.jotform.com",
+          isInitialOpen: false,
+          isDraggable: false,
+          background: "linear-gradient(180deg, #0F53B4 0%, #0F53B4 100%)",
+          buttonBackgroundColor: "#246506",
+          buttonIconColor: "#FFFFFF",
+          variant: false,
+          customizations: {
+            greeting: "Yes",
+            greetingMessage: "Hi! I'm your menu recommender",
+            pulse: "Yes",
+            position: "right"
+          }
+        });
+      });
+    </script>
+</body>
+</html>
